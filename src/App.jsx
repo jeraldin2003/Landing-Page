@@ -6,11 +6,11 @@ import Features from "./components/Features/Features";
 import Products from "./components/Products/Products";
 import FAQ from "./components/FAQ/FAQ";
 import Footer from "./components/Footer/Footer";
-
+import {faqItems} from "./data/faq.js"
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [faqOpen, setFaqOpen] = useState(0);
+  const [openFaq, setOpenFaq] = useState(Array(faqItems.length).fill(false))
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -27,7 +27,7 @@ export default function App() {
       <Hero />
       <Features />
       <Products products={filteredProducts} />
-      <FAQ openIndex={faqOpen} setOpenIndex={setFaqOpen} />
+      <FAQ openFaq={openFaq} setOpenFaq={setOpenFaq} />
       <Footer />
     </>
   );
