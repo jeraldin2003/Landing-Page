@@ -12,6 +12,8 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState(Array(faqItems.length).fill(false))
 
+  const [cart, setCart] = useState(Array(products.length).fill(0))
+  console.log(cart)
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -26,7 +28,7 @@ export default function App() {
       />
       <Hero />
       <Features />
-      <Products products={filteredProducts} />
+      <Products products={filteredProducts} cart ={cart} setCart ={setCart} />
       <FAQ openFaq={openFaq} setOpenFaq={setOpenFaq} />
       <Footer />
     </>
