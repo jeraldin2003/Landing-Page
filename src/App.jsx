@@ -13,7 +13,6 @@ export default function App() {
   const [openFaq, setOpenFaq] = useState(Array(faqItems.length).fill(false))
 
   const [cart, setCart] = useState(Array(products.length).fill(0))
-  console.log(cart)
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );

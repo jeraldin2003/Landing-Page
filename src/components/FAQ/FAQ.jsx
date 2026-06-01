@@ -1,76 +1,64 @@
 import { faqItems } from "../../data/faq";
-import "./FAQ.css";
+import { cn } from "../../lib/cn";
+import Card from "../ui/Card";
+import Container from "../ui/Container";
+import Eyebrow from "../ui/Eyebrow";
+import Heading from "../ui/Heading";
+import Section from "../ui/Section";
 
-export default function FAQ({ openFaq, setOpenFaq}) {
-  function setFaqOpenValue(index){
-    let copyOpenFaq = openFaq.slice()
-    if (copyOpenFaq[index] === false){
-      copyOpenFaq[index] = true;
-      setOpenFaq(copyOpenFaq)
-    }
-    else{
-      copyOpenFaq[index] = false;
-      setOpenFaq(copyOpenFaq)
-    }
+export default function FAQ({ openFaq, setOpenFaq }) {
+  function setFaqOpenValue(index) {
+    const copyOpenFaq = openFaq.slice();
+    copyOpenFaq[index] = !copyOpenFaq[index];
+    setOpenFaq(copyOpenFaq);
   }
+
   return (
-    <section className="section" id="faq">
-      <div className="container faq-wrap">
-        <p className="eyebrow">Support</p>
-        <h2 className="heading-sm">Common questions</h2>
-          <div className="faq-list">
-            {
-            faqItems.map((item, index) => {
-              const openStatus = openFaq[index]
-              return (
-                <div
-                  key={item.question}
-                  className={`card faq-item ${openStatus ? "faq-item--open" : ""}`}
+    <Section id="faq">
+      <Container className="max-w-[720px]">
+        <Eyebrow>Support</Eyebrow>
+        <Heading>Common questions</Heading>
+        <div className="flex flex-col gap-3">
+          {faqItems.map((item, index) => {
+            const openStatus = openFaq[index];
+            return (
+              <Card key={item.question} padding={false} className="overflow-hidden">
+                <button
+                  type="button"
+                  className={cn(
+                    "flex w-full cursor-pointer items-center justify-between gap-4 border-none bg-transparent px-6 py-5 text-left font-body text-base font-semibold text-text transition-colors hover:text-accent-dark",
+                    openStatus && "text-accent-dark"
+                  )}
+                  aria-expanded={openStatus}
+                  onClick={() => setFaqOpenValue(index)}
                 >
-                  <button
-                    type="button"
-                    className="faq-question"
-                    aria-expanded={openStatus}
-                    onClick={() => setFaqOpenValue(index)}
+                  <span>{item.question}</span>
+                  <span
+                    className="shrink-0 text-xl font-normal text-muted"
+                    aria-hidden="true"
                   >
-                    <span>{item.question}</span>
-                    <span className="faq-chevron" aria-hidden="true">
-                      {openStatus ? "−" : "+"}
-                    </span>
-                  </button>
-                  {openStatus && <p className="faq-answer text-muted">{item.answer}</p>}
-                </div>
-              );
-            })
-            }
-          </div>
-          {/* <div className="faq-list">
-            {
-            faqItems.map((item, index) => {
-              const isOpen = openIndex === index;
-              return (
+                    {openStatus ? "−" : "+"}
+                  </span>
+                </button>
                 <div
-                  key={item.question}
-                  className={`card faq-item ${isOpen ? "faq-item--open" : ""}`}
+                  className={cn(
+                    "grid transition-[grid-template-rows] duration-300 ease-out",
+                    openStatus ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                  )}
                 >
-                  <button
-                    type="button"
-                    className="faq-question"
-                    aria-expanded={isOpen}
-                    onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                  >
-                    <span>{item.question}</span>
-                    <span className="faq-chevron" aria-hidden="true">
-                      {isOpen ? "−" : "+"}
-                    </span>
-                  </button>
-                  {isOpen && <p className="faq-answer text-muted">{item.answer}</p>}
+                  <div className="overflow-hidden">
+                    {openStatus && (
+                      <p className="px-6 pb-5 text-[0.95rem] leading-relaxed text-muted">
+                        {item.answer}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              );
-            })
-            }
-          </div> */}
-      </div>
-    </section>
+              </Card>
+            );
+          })}
+        </div>
+      </Container>
+    </Section>
   );
 }

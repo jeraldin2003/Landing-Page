@@ -1,21 +1,27 @@
 import { features } from "../../data/features";
-import "./Features.css";
+import Card from "../ui/Card";
+import Container from "../ui/Container";
+import Eyebrow from "../ui/Eyebrow";
+import Heading from "../ui/Heading";
+import Section from "../ui/Section";
 
 export default function Features() {
   return (
-    <section className="section">
-      <div className="container">
-        <p className="eyebrow">Why shop with us</p>
-        <h2 className="heading-sm">Built for confident buying</h2>
-        <div className="features-grid">
+    <Section>
+      <Container>
+        <Eyebrow>Why shop with us</Eyebrow>
+        <Heading>Built for confident buying</Heading>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {features.map((feature) => (
-            <article key={feature.title} className="card feature-card">
-              <h3>{feature.title}</h3>
-              <p className="text-muted">{feature.description}</p>
-            </article>
+            <Card key={feature.title}>
+              <h3 className="mb-2 font-display text-[1.15rem]">{feature.title}</h3>
+              <p className="text-sm leading-normal text-muted">
+                {feature.description}
+              </p>
+            </Card>
           ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
