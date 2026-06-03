@@ -9,11 +9,6 @@ import { findNearest } from 'geolib';
 function findsClosestStore(locations, latitude, longitude) {
 
     const myLocation = { latitude: latitude, longitude: longitude };
-
-    // Sort all locations by distance
-    // const sorted = orderByDistance(myLocation, locations);
-
-    // Find just the single nearest location
     const nearest = findNearest(myLocation, locations);
     return nearest
 }
@@ -41,7 +36,7 @@ export default function Map() {
             { latitude: 51.503333, longitude: -0.119722 },
         ];
         const nearestStore = findsClosestStore(locations, coordinates.latitude, coordinates.longitude)
-        console.log(nearestStore.latitude, coordinates.latitude)
+        console.log(nearestStore.latitude, coordinates.latitude)    
         return (
             <>
                 <div className="map-box">
@@ -49,7 +44,7 @@ export default function Map() {
                     <MapContainer
                         center={[(coordinates.latitude + nearestStore.latitude) / 2, (coordinates.longitude + nearestStore.longitude) / 2]}
                         zoom={12}
-                        style={{ height: "400px", width: "70%", "borderRadius": "16px" }}
+                        style={{ height: "400px", width: "70%", "borderRadius": "16px", }}
                         className={"auto"}
                     >
                         {nearestStore && (<Polyline
@@ -62,16 +57,14 @@ export default function Map() {
                             attribution='&copy; OpenStreetMap contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-
-
-
                         <Marker position={[coordinates.latitude, coordinates.longitude]}>
+                            <Popup>You are here..</Popup>
                         </Marker>
                         {
-
                             locations.map((l, index) => {
                                 return (
                                     <Marker key={index} position={[l.latitude, l.longitude]}>
+                                        <Popup>We are here..</Popup>
                                     </Marker>)
                             })
                         }
@@ -82,6 +75,3 @@ export default function Map() {
     }
 
 }
-
-
-

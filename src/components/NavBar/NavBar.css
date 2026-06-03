@@ -1,7 +1,7 @@
 .nav-header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   background: rgba(251, 247, 242, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
