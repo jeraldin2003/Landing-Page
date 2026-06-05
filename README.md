@@ -1,3 +1,7 @@
+
+Deployement Link - https://landing-page-roan-one-52.vercel.app/
+Backend - https://github.com/jeraldin2003/Landing-Page-Backend
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
