@@ -86,6 +86,48 @@ import "./map.css";
 import { findNearest } from "geolib";
 import polyline from "@mapbox/polyline";
 
+
+
+const userIcon = L.divIcon({
+    html: `
+        <svg width="52" height="52" viewBox="0 0 52 52">
+            <circle cx="26" cy="26" r="19.5" fill="#4285F4" opacity="0.25"/>
+            <circle cx="26" cy="26" r="13" fill="#4285F4"/>
+            <circle cx="26" cy="26" r="5.2" fill="white"/>
+        </svg>
+    `,
+    className: "",
+    iconSize: [52, 52],
+    iconAnchor: [26, 26],
+});
+
+const locationIcon = L.divIcon({
+    html: `
+        <svg
+            width="40"
+            height="56"
+            viewBox="0 0 40 56"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M20 0C9 0 0 9 0 20c0 15 20 36 20 36s20-21 20-36C40 9 31 0 20 0z"
+                fill="#EA4335"
+            />
+            <circle
+                cx="20"
+                cy="20"
+                r="8"
+                fill="white"
+            />
+        </svg>
+    `,
+    className: "",
+    iconSize: [40, 56],
+    iconAnchor: [20, 56], // tip of the pin
+    popupAnchor: [0, -56],
+});
+
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function findsClosestStore(locations, latitude, longitude) {
@@ -202,6 +244,7 @@ export default function Map() {
                             coordinates.latitude,
                             coordinates.longitude,
                         ]}
+                        icon={userIcon}
                     >
                         <Popup>You are here..</Popup>
                     </Marker>
@@ -210,6 +253,7 @@ export default function Map() {
                         <Marker
                             key={index}
                             position={[l.latitude, l.longitude]}
+                            icon ={locationIcon}
                         >
                             <Popup>We are here..</Popup>
                         </Marker>
