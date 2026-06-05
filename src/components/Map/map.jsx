@@ -86,6 +86,8 @@ import "./map.css";
 import { findNearest } from "geolib";
 import polyline from "@mapbox/polyline";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 function findsClosestStore(locations, latitude, longitude) {
     const myLocation = { latitude, longitude };
     return findNearest(myLocation, locations);
@@ -126,7 +128,7 @@ export default function Map() {
 
         const getRoute = async () => {
             try {
-                const response = await fetch("http://localhost:3001/route", {
+                const response = await fetch(BACKEND_URL, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -142,6 +144,9 @@ export default function Map() {
                         },
                     }),
                 });
+                if (!response.ok) {
+                    throw new Error(`Request failed: ${response.status}`);
+                }
 
                 const data = await response.json();
 
